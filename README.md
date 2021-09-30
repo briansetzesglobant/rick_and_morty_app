@@ -14,3 +14,12 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+Clean architecture structure based on:
+https://medium.com/flutterdevs/explore-clean-architecture-in-flutter-3fff83e0f1f2
+https://docs.google.com/presentation/d/1aBtccGraTyggnIP6Nn7m8uGfBgreKWIk-2JuLafKAds/edit?usp=sharing
+https://github.com/MarcosCGlobant/flutter_clean_architecture_example
+
+Running Lint:
+https://pub.dev/packages/lint
+https://dart.dev/guides/language/effective-dart/style
