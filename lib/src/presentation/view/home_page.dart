@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../core/util/constants.dart';
 import '../../core/util/strings_constants.dart';
+import 'characters_page.dart';
+import 'locations_page.dart';
+import 'seasons_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({
@@ -21,17 +23,20 @@ class _HomePageState extends State<HomePage> {
         title: Text(
           widget.title,
         ),
-        automaticallyImplyLeading: false,
+        centerTitle: true,
       ),
-      body: const Center(
-        child: Text(
-          StringsConstants.homePageText,
-          style: TextStyle(
-            fontSize: Constants.homePageTextSize,
-            color: Colors.green,
-            decoration: TextDecoration.underline,
+      body: PageView(
+        children: const <Widget>[
+          CharactersPage(
+            title: StringsConstants.charactersPageTitle,
           ),
-        ),
+          SeasonsPage(
+            title: StringsConstants.seasonsPageTitle,
+          ),
+          LocationsPage(
+            title: StringsConstants.locationsPageTitle,
+          ),
+        ],
       ),
     );
   }
