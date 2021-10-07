@@ -25,7 +25,7 @@ class _SeasonsPageState extends State<SeasonsPage> {
       ),
       body: const Center(
         child: Text(
-          StringsConstants.seasonsPageText,
+          StringsConstants.seasonsPage,
           style: TextStyles.style,
         ),
       ),

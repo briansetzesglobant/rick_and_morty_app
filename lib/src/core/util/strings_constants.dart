@@ -3,10 +3,7 @@ abstract class StringsConstants {
   static const String homePageTitle = 'Rick and Morty App';
   static const String appRouteDefault = 'Undefined route';
 
-  static const String charactersPageTitle = 'Characters Page Title';
-  static const String seasonsPageTitle = 'Seasons Page Title';
-  static const String locationsPageTitle = 'Locations Page Title';
-  static const String charactersPageText = 'Characters Page';
-  static const String seasonsPageText = 'Seasons Page';
-  static const String locationsPageText = 'Locations Page';
+  static const String charactersPage = 'Characters';
+  static const String seasonsPage = 'Seasons';
+  static const String locationsPage = 'Locations';
 }

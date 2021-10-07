@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../core/util/strings_constants.dart';
 import '../../core/util/text_styles.dart';
@@ -26,7 +25,7 @@ class _CharactersPageState extends State<CharactersPage> {
       ),
       body: const Center(
         child: Text(
-          StringsConstants.charactersPageText,
+          StringsConstants.charactersPage,
           style: TextStyles.style,
         ),
       ),

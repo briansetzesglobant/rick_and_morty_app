@@ -25,7 +25,7 @@ class _LocationsPageState extends State<LocationsPage> {
       ),
       body: const Center(
         child: Text(
-          StringsConstants.locationsPageText,
+          StringsConstants.locationsPage,
           style: TextStyles.style,
         ),
       ),

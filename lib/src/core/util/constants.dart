@@ -6,4 +6,5 @@ abstract class Constants {
   static const double splashScreenLinearMinHeight = 30.0;
 
   static const double pageTextSize = 25.0;
+  static const int page = 0;
 }
