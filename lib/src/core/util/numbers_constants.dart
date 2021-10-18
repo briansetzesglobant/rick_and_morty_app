@@ -1,4 +1,4 @@
-abstract class Constants {
+abstract class NumbersConstants {
   static const int splashScreenDuration = 3000;
   static const double splashScreenPositionedLeft = 20.0;
   static const double splashScreenPositionedRight = 20.0;
@@ -8,4 +8,6 @@ abstract class Constants {
   static const double pageTextSize = 25.0;
   static const int page = 0;
   static const duration = 500;
+
+  static const int status = 200;
 }

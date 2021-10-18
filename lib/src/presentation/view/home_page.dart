@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../core/util/constants.dart';
+import '../../core/util/numbers_constants.dart';
 import '../../core/util/strings_constants.dart';
-import 'characters_page.dart';
-import 'locations_page.dart';
-import 'seasons_page.dart';
+import 'character_page.dart';
+import 'location_page.dart';
+import 'season_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({
+  HomePage({
     required this.title,
   });
 
@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _page = Constants.page;
+    _page = NumbersConstants.page;
     _pageController = PageController(
       initialPage: _page,
     );
@@ -45,15 +45,15 @@ class _HomePageState extends State<HomePage> {
             _page = newPage;
           });
         },
-        children: const <Widget>[
-          CharactersPage(
-            title: StringsConstants.charactersPage,
+        children: <Widget>[
+          CharacterPage(
+            title: StringsConstants.characterPage,
           ),
-          SeasonsPage(
-            title: StringsConstants.seasonsPage,
+          SeasonPage(
+            title: StringsConstants.seasonPage,
           ),
-          LocationsPage(
-            title: StringsConstants.locationsPage,
+          LocationPage(
+            title: StringsConstants.locationPage,
           ),
         ],
       ),
@@ -62,21 +62,22 @@ class _HomePageState extends State<HomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.accessibility),
-            label: StringsConstants.charactersPage,
+            label: StringsConstants.characterPage,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.movie),
-            label: StringsConstants.seasonsPage,
+            label: StringsConstants.seasonPage,
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.location_on),
-            label: StringsConstants.locationsPage,
+            label: StringsConstants.locationPage,
+            backgroundColor: Colors.orange,
           ),
         ],
         onTap: (index) {
           _pageController.animateToPage(
             index,
-            duration: const Duration(milliseconds: 500),
+            duration: const Duration(milliseconds: NumbersConstants.duration),
             curve: Curves.ease,
           );
         },

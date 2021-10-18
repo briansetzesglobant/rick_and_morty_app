@@ -1,30 +1,29 @@
 import 'dart:async';
+import '../../core/bloc/bloc_interface.dart';
+import '../../data/model/character_response.dart';
+import '../../domain/usecase/implementation/character_use_case.dart';
 
-import 'package:rick_and_morty_app/src/data/model/character_response.dart';
-
-import '../../domain/usecase/implementation/character_usecase.dart';
-
-class CharacterBloc extends  BlocInterface{
+class CharacterBloc implements BlocInterface {
   CharacterBloc();
 
-  late CharacterUseCase _characterUseCase;
-  final _pokemonFetcher = StreamController<CharacterResponse>.broadcast();
+  CharacterUseCase _characterUseCase = CharacterUseCase();
+  StreamController<CharacterResponse> _characterStreamController =
+      StreamController();
 
-  Stream<CharacterResponse> get allStream => _pokemonFetcher.stream;
-
-  @override
-  void fetchAllPokemons() async {
-    List<Pokemon> pokemonModel = await _pokemonUseCase.call();
-    _pokemonFetcher.sink.add(pokemonModel);
-  }
+  Stream<CharacterResponse> get characterStream =>
+      _characterStreamController.stream;
 
   @override
-  Future<void> initialize() async {
-    _pokemonUseCase = GetPokemonsUseCase();
-  }
+  Future<void> initialize() async {}
 
   @override
   void dispose() {
-    _pokemonFetcher.close();
+    _characterStreamController.close();
+  }
+
+  @override
+  void fetchAllCharacters() async {
+    final _characterList = await _characterUseCase.fetchAllCharacters();
+    _characterStreamController.sink.add(_characterList);
   }
 }
