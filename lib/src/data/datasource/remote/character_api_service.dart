@@ -1,16 +1,16 @@
 import 'dart:convert';
 import 'package:http/http.dart';
-import '../../model/characteres.dart';
+import '../../model/character_response.dart';
 import '../../../core/util/endpoints_constants.dart';
 import '../../../core/util/numbers_constants.dart';
 import '../../../core/util/strings_constants.dart';
 
-class CharactersApiService {
-  CharactersApiService();
+class CharacterApiService {
+  CharacterApiService();
 
   Client client = Client();
 
-  Future<Characteres> fetchAllCharacters() async {
+  Future<CharacterResponse> fetchAllCharacters() async {
     final _response = await client.get(
       Uri.parse(
         EndpointsConstants.charactersEndpoint,
@@ -19,9 +19,9 @@ class CharactersApiService {
     return response(_response);
   }
 
-  Characteres response(Response _response) {
+  CharacterResponse response(Response _response) {
     if (_response.statusCode == NumbersConstants.status) {
-      return Characteres.fromJson(json.decode(
+      return CharacterResponse.fromJson(json.decode(
         _response.body,
       ));
     } else {

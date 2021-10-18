@@ -1,9 +1,9 @@
 import 'location.dart';
 import 'origin.dart';
-import '../../domain/entity/results_entity.dart';
+import '../../domain/entity/character_entity.dart';
 
-class Result extends ResultsEntity {
-  const Result({
+class Character extends CharacterEntity {
+  Character({
     required this.id,
     required this.name,
     required this.status,
@@ -31,14 +31,14 @@ class Result extends ResultsEntity {
           created: created,
         );
 
-  factory Result.fromJson(Map<String, dynamic> parsedJson) {
+  factory Character.fromJson(Map<String, dynamic> parsedJson) {
     var parsedJsonList = parsedJson['episode'] as List;
     List<String> episodeList = [];
     for (int i = 0; i < parsedJsonList.length; i++) {
       episodeList.add(parsedJsonList[i]);
     }
 
-    return Result(
+    return Character(
       id: parsedJson['id'],
       name: parsedJson['name'],
       status: parsedJson['status'],

@@ -1,9 +1,9 @@
-import '../../domain/entity/character_entity.dart';
+import '../../domain/entity/character_response_entity.dart';
 import 'info.dart';
-import 'result.dart';
+import 'character.dart';
 
-class Character extends CharacterEntity {
-  const Character({
+class CharacterResponse extends CharacterResponseEntity {
+  CharacterResponse({
     required this.info,
     required this.results,
   }) : super(
@@ -11,18 +11,18 @@ class Character extends CharacterEntity {
           results: results,
         );
 
-  factory Character.fromJson(Map<String, dynamic> parsedJson) {
+  factory CharacterResponse.fromJson(Map<String, dynamic> parsedJson) {
     var parsedJsonList = parsedJson['results'] as List;
-    List<Result> resultsList = parsedJsonList
-        .map((eachResults) => Result.fromJson(eachResults))
+    List<Character> resultsList = parsedJsonList
+        .map((eachResults) => Character.fromJson(eachResults))
         .toList();
 
-    return Character(
+    return CharacterResponse(
       info: Info.fromJson(parsedJson['info']),
       results: resultsList,
     );
   }
 
   final Info info;
-  final List<Result> results;
+  final List<Character> results;
 }

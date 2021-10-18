@@ -1,14 +1,14 @@
-import '../model/characteres.dart';
+import '../model/character_response.dart';
 import '../../domain/repository/repository_interface.dart';
-import '../datasource/remote/characters_api_service.dart';
+import '../datasource/remote/character_api_service.dart';
 
-class CharactersRepository extends RepositoryInterface {
-  CharactersRepository();
+class CharacterRepository extends RepositoryInterface {
+  CharacterRepository();
 
-  final CharactersApiService charactersApiService = CharactersApiService();
+  final CharacterApiService characterApiService = CharacterApiService();
 
   @override
-  Future<Characteres> fetchAllCharacters() {
-    return charactersApiService.fetchAllCharacters();
+  Future<CharacterResponse> fetchAllCharacters() {
+    return characterApiService.fetchAllCharacters();
   }
 }
