@@ -7,4 +7,5 @@ abstract class Constants {
 
   static const double pageTextSize = 25.0;
   static const int page = 0;
+  static const duration = 500;
 }
