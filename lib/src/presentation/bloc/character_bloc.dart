@@ -1,16 +1,16 @@
 import 'dart:async';
 import '../../core/bloc/bloc_interface.dart';
-import '../../data/model/character_response.dart';
+import '../../data/model/general_character.dart';
 import '../../domain/usecase/implementation/character_use_case.dart';
 
 class CharacterBloc implements BlocInterface {
   CharacterBloc();
 
   CharacterUseCase _characterUseCase = CharacterUseCase();
-  StreamController<CharacterResponse> _characterStreamController =
+  StreamController<GeneralCharacter> _characterStreamController =
       StreamController();
 
-  Stream<CharacterResponse> get characterStream =>
+  Stream<GeneralCharacter> get characterStream =>
       _characterStreamController.stream;
 
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:rick_and_morty_app/src/data/model/character_response.dart';
+import 'package:rick_and_morty_app/src/data/model/general_character.dart';
 import 'package:rick_and_morty_app/src/domain/usecase/implementation/character_use_case.dart';
 
 void main() {
@@ -10,7 +10,7 @@ void main() {
   });
 
   test('It should be generated a response with the characters', () async {
-    CharacterResponse characterResponse =
+    GeneralCharacter characterResponse =
         await characterUseCase.fetchAllCharacters();
     expect(
       characterResponse.results,

@@ -1,8 +1,8 @@
 import 'info_entity.dart';
 import 'character_entity.dart';
 
-class CharacterResponseEntity {
-  CharacterResponseEntity({
+class GeneralCharacterEntity {
+  GeneralCharacterEntity({
     required this.info,
     required this.results,
   });

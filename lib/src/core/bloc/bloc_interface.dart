@@ -1,8 +1,8 @@
-import '../../data/model/character_response.dart';
+import '../../data/model/general_character.dart';
 import 'bloc.dart';
 
 abstract class BlocInterface extends Bloc {
-  Stream<CharacterResponse> get characterStream;
+  Stream<GeneralCharacter> get characterStream;
 
   void fetchAllCharacters();
 }

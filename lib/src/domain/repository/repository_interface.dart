@@ -1,5 +1,5 @@
-import '../../data/model/character_response.dart';
+import '../../data/model/general_character.dart';
 
 abstract class RepositoryInterface {
-  Future<CharacterResponse> fetchAllCharacters();
+  Future<GeneralCharacter> fetchAllCharacters();
 }
