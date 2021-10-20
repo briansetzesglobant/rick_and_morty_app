@@ -4,7 +4,10 @@ class Location extends LocationEntity {
   Location({
     required this.name,
     required this.url,
-  }) : super(name: name, url: url);
+  }) : super(
+          name: name,
+          url: url,
+        );
 
   factory Location.fromJson(Map<String, dynamic> parsedJson) {
     return Location(
