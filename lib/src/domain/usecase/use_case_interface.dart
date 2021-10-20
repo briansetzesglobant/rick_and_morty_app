@@ -1,5 +1,5 @@
 import '../../data/model/general_character.dart';
 
-abstract class RepositoryInterface {
+abstract class UseCaseInterface {
   Future<GeneralCharacter> fetchAllCharacters();
 }

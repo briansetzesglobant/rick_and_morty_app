@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import '../../core/util/strings_constants.dart';
 import '../../core/util/text_styles.dart';
 
-class SeasonsPage extends StatefulWidget {
-  const SeasonsPage({
+class CharacterPage extends StatefulWidget {
+  const CharacterPage({
     required this.title,
   });
 
   final String title;
 
   @override
-  _SeasonsPageState createState() => _SeasonsPageState();
+  _CharacterPageState createState() => _CharacterPageState();
 }
 
-class _SeasonsPageState extends State<SeasonsPage> {
+class _CharacterPageState extends State<CharacterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +25,7 @@ class _SeasonsPageState extends State<SeasonsPage> {
       ),
       body: const Center(
         child: Text(
-          StringsConstants.seasonsPage,
+          StringsConstants.characterPage,
           style: TextStyles.style,
         ),
       ),
