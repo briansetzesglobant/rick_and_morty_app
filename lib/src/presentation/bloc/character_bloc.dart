@@ -22,8 +22,9 @@ class CharacterBloc implements BlocInterface {
   }
 
   @override
-  void fetchAllCharacters() async {
-    final _characterList = await _characterUseCase.fetchAllCharacters();
+  void fetchAllCharacters(int pageNumber) async {
+    final _characterList =
+        await _characterUseCase.fetchAllCharacters(pageNumber);
     _characterStreamController.sink.add(_characterList);
   }
 }
