@@ -13,7 +13,7 @@ class CharacterRepository extends RepositoryInterface {
   }
 
   @override
-  Future<GeneralCharacter> fetchNextPage(String? next) {
-    return characterApiService.fetchNextPage(next);
+  Future<GeneralCharacter> fetchCharactersNextPage(String next) {
+    return characterApiService.fetchCharactersNextPage(next);
   }
 }

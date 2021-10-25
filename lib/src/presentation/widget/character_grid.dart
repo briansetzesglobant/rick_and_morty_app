@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../core/util/text_styles.dart';
 import '../../core/bloc/bloc_interface.dart';
-import '../../core/util/strings_constants.dart';
 import '../../core/util/numbers_constants.dart';
 import '../../data/model/general_character.dart';
+import 'character_card.dart';
 
 class CharacterGrid extends StatefulWidget {
   CharacterGrid({
@@ -30,9 +29,9 @@ class _CharacterGridState extends State<CharacterGrid> {
       ),
       itemBuilder: (BuildContext context, int index) {
         if (index == widget.characterData.results.length) {
-          if (widget.characterData.info.next != null) {
-            widget.characterBloc
-                .fetchAllNextPage(widget.characterData.info.next);
+          if (widget.characterBloc.nextPageCharacter != null) {
+            widget.characterBloc.fetchCharactersNextPage(
+                widget.characterBloc.nextPageCharacter!);
           }
           return Center(
             child: CircularProgressIndicator(
@@ -41,35 +40,9 @@ class _CharacterGridState extends State<CharacterGrid> {
             ),
           );
         } else {
-          return Container(
-            child: Padding(
-              padding: const EdgeInsets.all(
-                NumbersConstants.paddingImage,
-              ),
-              child: Column(
-                children: [
-                  Text(
-                    widget.characterData.results[index].name,
-                    style: TextStyles.styleCharacterName,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: NumbersConstants.sizeBoxGrid),
-                  Expanded(
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(NumbersConstants.radius),
-                      ),
-                      child: FadeInImage.assetNetwork(
-                        placeholder: StringsConstants.imageDefaultLocal,
-                        image: widget.characterData.results[index].image,
-                        width: NumbersConstants.sizeFadeInImage,
-                        height: NumbersConstants.sizeFadeInImage,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          return CharacterCard(
+            nameCharacter: widget.characterData.results[index].name,
+            imageCharacter: widget.characterData.results[index].image,
           );
         }
       },

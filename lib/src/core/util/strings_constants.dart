@@ -10,7 +10,7 @@ abstract class StringsConstants {
   static const String error =
       'An error has occurred while loading the characters';
 
-  static const String imageDefaultLocal = 'assets/images/default-thumb.png';
+  static const String localDefaultImage = 'assets/images/default-thumb.png';
 
   static const String constantInitialization = '';
 }

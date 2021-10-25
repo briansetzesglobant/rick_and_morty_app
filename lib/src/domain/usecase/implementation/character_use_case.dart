@@ -13,7 +13,7 @@ class CharacterUseCase implements UseCaseInterface {
   }
 
   @override
-  Future<GeneralCharacter> fetchNextPage(String? next) {
-    return _characterRepository.fetchNextPage(next);
+  Future<GeneralCharacter> fetchCharactersNextPage(String next) {
+    return _characterRepository.fetchCharactersNextPage(next);
   }
 }

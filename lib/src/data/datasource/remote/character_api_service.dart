@@ -19,10 +19,10 @@ class CharacterApiService {
     return response(_response);
   }
 
-  Future<GeneralCharacter> fetchNextPage(String? next) async {
+  Future<GeneralCharacter> fetchCharactersNextPage(String next) async {
     final _response = await client.get(
       Uri.parse(
-        next!,
+        next,
       ),
     );
     return response(_response);

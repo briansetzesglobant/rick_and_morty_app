@@ -1,7 +1,4 @@
 import 'dart:async';
-import '../../core/util/numbers_constants.dart';
-import '../../core/util/strings_constants.dart';
-import '../../data/model/info.dart';
 import '../../core/bloc/bloc_interface.dart';
 import '../../data/model/general_character.dart';
 import '../../domain/usecase/implementation/character_use_case.dart';
@@ -10,14 +7,8 @@ class CharacterBloc implements BlocInterface {
   CharacterBloc();
 
   CharacterUseCase _characterUseCase = CharacterUseCase();
-  GeneralCharacter _generalCharacter = GeneralCharacter(
-    info: Info(
-        count: NumbersConstants.constantInitialization,
-        pages: NumbersConstants.constantInitialization,
-        next: StringsConstants.constantInitialization,
-        prev: StringsConstants.constantInitialization),
-    results: [],
-  );
+  late GeneralCharacter _generalCharacter;
+  late String? _nextPageCharacter;
 
   StreamController<GeneralCharacter> _characterStreamController =
       StreamController();
@@ -26,9 +17,12 @@ class CharacterBloc implements BlocInterface {
       _characterStreamController.stream;
 
   @override
+  String? get nextPageCharacter => _nextPageCharacter;
+
+  @override
   Future<void> initialize() async {
-    this.characterStream.listen((event) {
-      _generalCharacter = event;
+    this.characterStream.listen((eventCharacters) {
+      _generalCharacter = eventCharacters;
     });
   }
 
@@ -40,20 +34,16 @@ class CharacterBloc implements BlocInterface {
   @override
   void fetchAllCharacters() async {
     _generalCharacter = await _characterUseCase.fetchAllCharacters();
+    _nextPageCharacter = _generalCharacter.info.next!;
     _characterStreamController.sink.add(_generalCharacter);
   }
 
   @override
-  void fetchAllNextPage(String? next) async {
-    final _generalCharacterNext = await _characterUseCase.fetchNextPage(next);
-    for (int i =
-            _generalCharacter.results.length - NumbersConstants.numberOneFor;
-        i >= NumbersConstants.numberZeroFor;
-        i--) {
-      _generalCharacterNext.results
-          .insert(NumbersConstants.numberZeroFor, _generalCharacter.results[i]);
-    }
-    _generalCharacter = _generalCharacterNext;
+  void fetchCharactersNextPage(String next) async {
+    final _generalCharacterNext =
+        await _characterUseCase.fetchCharactersNextPage(next);
+    _generalCharacter.results.addAll(_generalCharacterNext.results);
+    _nextPageCharacter = _generalCharacterNext.info.next!;
     _characterStreamController.sink.add(_generalCharacter);
   }
 }

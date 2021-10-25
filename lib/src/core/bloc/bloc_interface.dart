@@ -6,5 +6,7 @@ abstract class BlocInterface extends Bloc {
 
   void fetchAllCharacters();
 
-  void fetchAllNextPage(String? next);
+  void fetchCharactersNextPage(String next);
+
+  String? get nextPageCharacter;
 }
