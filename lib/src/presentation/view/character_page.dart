@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../core/util/numbers_constants.dart';
 import '../../core/util/colors_constants.dart';
 import '../../data/model/general_character.dart';
 import '../widget/character_grid.dart';
@@ -23,7 +22,7 @@ class _CharacterPageState extends State<CharacterPage> {
   @override
   void initState() {
     super.initState();
-    _characterBloc.fetchAllCharacters(NumbersConstants.firstPage);
+    _characterBloc.fetchAllCharacters();
   }
 
   @override

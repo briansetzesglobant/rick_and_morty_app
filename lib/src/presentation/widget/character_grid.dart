@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import '../../core/util/text_styles.dart';
 import '../../core/bloc/bloc_interface.dart';
 import '../../core/util/strings_constants.dart';
 import '../../core/util/numbers_constants.dart';
@@ -14,49 +16,62 @@ class CharacterGrid extends StatefulWidget {
   final BlocInterface characterBloc;
 
   @override
-  _CharacterGridState createState() => _CharacterGridState(
-      characterData: characterData, characterBloc: characterBloc);
+  _CharacterGridState createState() => _CharacterGridState();
 }
 
 class _CharacterGridState extends State<CharacterGrid> {
-  _CharacterGridState({
-    required this.characterData,
-    required this.characterBloc,
-  });
-
-  final GeneralCharacter characterData;
-  final BlocInterface characterBloc;
-  int _pageNumber = NumbersConstants.firstPage;
-
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
-      itemCount: characterData.results.length,
+      itemCount:
+          widget.characterData.results.length + NumbersConstants.valueAdded,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: NumbersConstants.crossAxisCountNumber,
       ),
       itemBuilder: (BuildContext context, int index) {
-        if (index >=
-            characterData.results.length - NumbersConstants.constantLimit) {
-          _pageNumber++;
-          characterBloc.fetchAllCharacters(_pageNumber);
+        if (index == widget.characterData.results.length) {
+          if (widget.characterData.info.next != null) {
+            widget.characterBloc
+                .fetchAllNextPage(widget.characterData.info.next);
+          }
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.greenAccent,
+              color: Colors.teal,
+            ),
+          );
+        } else {
+          return Container(
+            child: Padding(
+              padding: const EdgeInsets.all(
+                NumbersConstants.paddingImage,
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    widget.characterData.results[index].name,
+                    style: TextStyles.styleCharacterName,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: NumbersConstants.sizeBoxGrid),
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(NumbersConstants.radius),
+                      ),
+                      child: FadeInImage.assetNetwork(
+                        placeholder: StringsConstants.imageDefaultLocal,
+                        image: widget.characterData.results[index].image,
+                        width: NumbersConstants.sizeFadeInImage,
+                        height: NumbersConstants.sizeFadeInImage,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
         }
-        return Container(
-          child: Padding(
-            padding: const EdgeInsets.all(
-              NumbersConstants.paddingImage,
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.all(
-                Radius.circular(NumbersConstants.radius),
-              ),
-              child: FadeInImage.assetNetwork(
-                placeholder: StringsConstants.imageDefaultLocal,
-                image: characterData.results[index].image,
-              ),
-            ),
-          ),
-        );
       },
     );
   }

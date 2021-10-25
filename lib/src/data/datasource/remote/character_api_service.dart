@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:http/http.dart';
-import '../../model/info.dart';
 import '../../model/general_character.dart';
 import '../../../core/util/endpoints_constants.dart';
 import '../../../core/util/numbers_constants.dart';
@@ -10,34 +9,28 @@ class CharacterApiService {
   CharacterApiService();
 
   Client client = Client();
-  GeneralCharacter generalCharacter = GeneralCharacter(
-    info: Info(
-        count: NumbersConstants.constantInitialization,
-        pages: NumbersConstants.constantInitialization,
-        next: StringsConstants.constantInitialization,
-        prev: StringsConstants.constantInitialization),
-    results: [],
-  );
 
-  Future<GeneralCharacter> fetchAllCharacters(int pageNumber) async {
+  Future<GeneralCharacter> fetchAllCharacters() async {
     final _response = await client.get(
       Uri.parse(
-        EndpointsConstants.charactersEndpoint + pageNumber.toString(),
+        EndpointsConstants.charactersEndpoint,
       ),
     );
-    return response(_response, pageNumber);
+    return response(_response);
   }
 
-  GeneralCharacter response(Response _response, int pageNumber) {
+  Future<GeneralCharacter> fetchNextPage(String? next) async {
+    final _response = await client.get(
+      Uri.parse(
+        next!,
+      ),
+    );
+    return response(_response);
+  }
+
+  GeneralCharacter response(Response _response) {
     if (_response.statusCode == NumbersConstants.status) {
-      if (pageNumber == NumbersConstants.firstPage) {
-        generalCharacter =
-            GeneralCharacter.fromJson(json.decode(_response.body));
-      } else {
-        generalCharacter.results.addAll(
-            GeneralCharacter.fromJson(json.decode(_response.body)).results);
-      }
-      return generalCharacter;
+      return GeneralCharacter.fromJson(json.decode(_response.body));
     } else {
       throw Exception(
         StringsConstants.error + _response.statusCode.toString(),

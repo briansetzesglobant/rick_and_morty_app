@@ -21,7 +21,12 @@ abstract class NumbersConstants {
 
   static const double radius = 30.0;
 
-  static const int constantLimit = 1;
+  static const int valueAdded = 1;
+  static const double sizeBoxGrid = 10.0;
+  static const double sizeFadeInImage = 130.0;
+  static const double pageTextSizeCharacterName = 20.0;
+
   static const int constantInitialization = 0;
-  static const int firstPage = 1;
+  static const int numberOneFor = 1;
+  static const int numberZeroFor = 0;
 }

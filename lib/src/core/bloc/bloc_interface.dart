@@ -4,5 +4,7 @@ import 'bloc.dart';
 abstract class BlocInterface extends Bloc {
   Stream<GeneralCharacter> get characterStream;
 
-  void fetchAllCharacters(int pageNumber);
+  void fetchAllCharacters();
+
+  void fetchAllNextPage(String? next);
 }

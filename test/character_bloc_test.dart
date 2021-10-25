@@ -11,12 +11,12 @@ void main() {
 
   group('Response of the characters', () {
     test('It should be generated a response with the characters', () async {
-      characterBloc.fetchAllCharacters(1);
+      characterBloc.fetchAllCharacters();
       expect(characterBloc.characterStream, emits(isA<GeneralCharacter>()));
     });
 
     test('It should be generated a response with the characters', () async {
-      characterBloc.fetchAllCharacters(1);
+      characterBloc.fetchAllCharacters();
       characterBloc.characterStream.listen(expectAsync1((event) {
         expect(event, isInstanceOf<GeneralCharacter>());
       }));

@@ -11,7 +11,7 @@ void main() {
 
   test('It should be generated a response with the characters', () async {
     GeneralCharacter characterResponse =
-        await characterUseCase.fetchAllCharacters(1);
+        await characterUseCase.fetchAllCharacters();
     expect(
       characterResponse.results,
       isNotEmpty,
