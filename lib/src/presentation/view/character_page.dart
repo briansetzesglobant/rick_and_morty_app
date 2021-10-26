@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../core/util/strings_constants.dart';
-import '../../core/util/text_styles.dart';
+import '../../core/util/colors_constants.dart';
+import '../../data/model/general_character.dart';
+import '../widget/character_grid.dart';
+import '../../core/bloc/bloc_interface.dart';
+import '../bloc/character_bloc.dart';
 
 class CharacterPage extends StatefulWidget {
-  const CharacterPage({
+  CharacterPage({
     required this.title,
   });
 
@@ -14,6 +17,20 @@ class CharacterPage extends StatefulWidget {
 }
 
 class _CharacterPageState extends State<CharacterPage> {
+  final BlocInterface _characterBloc = CharacterBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    _characterBloc.fetchAllCharacters();
+  }
+
+  @override
+  void dispose() {
+    _characterBloc.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +40,25 @@ class _CharacterPageState extends State<CharacterPage> {
         ),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text(
-          StringsConstants.characterPage,
-          style: TextStyles.style,
-        ),
-      ),
+      body: StreamBuilder<GeneralCharacter>(
+          stream: _characterBloc.characterStream,
+          builder: (
+            context,
+            AsyncSnapshot<GeneralCharacter> snapshot,
+          ) {
+            return snapshot.hasData
+                ? CharacterGrid(
+                    characterData: snapshot.data!,
+                    characterBloc: _characterBloc,
+                  )
+                : Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.greenAccent,
+                      color: Colors.teal,
+                    ),
+                  );
+          }),
+      backgroundColor: ColorsConstants.style,
     );
   }
 }

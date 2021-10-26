@@ -11,4 +11,9 @@ class CharacterUseCase implements UseCaseInterface {
   Future<GeneralCharacter> fetchAllCharacters() {
     return _characterRepository.fetchAllCharacters();
   }
+
+  @override
+  Future<GeneralCharacter> fetchCharactersNextPage(String next) {
+    return _characterRepository.fetchCharactersNextPage(next);
+  }
 }

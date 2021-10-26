@@ -7,4 +7,9 @@ abstract class TextStyles {
     color: Colors.green,
     decoration: TextDecoration.underline,
   );
+  static const TextStyle styleCharacterName = TextStyle(
+    fontSize: NumbersConstants.pageTextSizeCharacterName,
+    color: Colors.blueGrey,
+    decoration: TextDecoration.underline,
+  );
 }

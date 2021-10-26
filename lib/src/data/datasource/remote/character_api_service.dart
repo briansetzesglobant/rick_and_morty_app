@@ -19,11 +19,18 @@ class CharacterApiService {
     return response(_response);
   }
 
+  Future<GeneralCharacter> fetchCharactersNextPage(String next) async {
+    final _response = await client.get(
+      Uri.parse(
+        next,
+      ),
+    );
+    return response(_response);
+  }
+
   GeneralCharacter response(Response _response) {
     if (_response.statusCode == NumbersConstants.status) {
-      return GeneralCharacter.fromJson(json.decode(
-        _response.body,
-      ));
+      return GeneralCharacter.fromJson(json.decode(_response.body));
     } else {
       throw Exception(
         StringsConstants.error + _response.statusCode.toString(),

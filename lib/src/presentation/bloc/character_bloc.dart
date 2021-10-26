@@ -7,6 +7,9 @@ class CharacterBloc implements BlocInterface {
   CharacterBloc();
 
   CharacterUseCase _characterUseCase = CharacterUseCase();
+  late GeneralCharacter _generalCharacter;
+  late String? _nextPageCharacter;
+
   StreamController<GeneralCharacter> _characterStreamController =
       StreamController();
 
@@ -14,7 +17,14 @@ class CharacterBloc implements BlocInterface {
       _characterStreamController.stream;
 
   @override
-  Future<void> initialize() async {}
+  String? get nextPageCharacter => _nextPageCharacter;
+
+  @override
+  Future<void> initialize() async {
+    this.characterStream.listen((eventCharacters) {
+      _generalCharacter = eventCharacters;
+    });
+  }
 
   @override
   void dispose() {
@@ -23,7 +33,17 @@ class CharacterBloc implements BlocInterface {
 
   @override
   void fetchAllCharacters() async {
-    final _characterList = await _characterUseCase.fetchAllCharacters();
-    _characterStreamController.sink.add(_characterList);
+    _generalCharacter = await _characterUseCase.fetchAllCharacters();
+    _nextPageCharacter = _generalCharacter.info.next!;
+    _characterStreamController.sink.add(_generalCharacter);
+  }
+
+  @override
+  void fetchCharactersNextPage(String next) async {
+    final _generalCharacterNext =
+        await _characterUseCase.fetchCharactersNextPage(next);
+    _generalCharacter.results.addAll(_generalCharacterNext.results);
+    _nextPageCharacter = _generalCharacterNext.info.next!;
+    _characterStreamController.sink.add(_generalCharacter);
   }
 }
