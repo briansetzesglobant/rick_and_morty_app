@@ -22,7 +22,7 @@ class _CharacterPageState extends State<CharacterPage> {
   @override
   void initState() {
     super.initState();
-    _characterBloc.fetchAllCharacters();
+    _characterBloc.fetchFirstCharacters();
   }
 
   @override
