@@ -3,11 +3,7 @@ import '../../../../core/util/strings_constants.dart';
 import '../../../model/character.dart';
 
 class CharacterDatabase {
-  factory CharacterDatabase() => singleton;
-
-  CharacterDatabase._create();
-
-  static CharacterDatabase singleton = CharacterDatabase._create();
+  CharacterDatabase();
 
   FirebaseFirestore get instanceFirestore => FirebaseFirestore.instance;
 

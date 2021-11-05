@@ -23,6 +23,6 @@ class GeneralCharacter extends GeneralCharacterEntity {
     );
   }
 
-  final Info info;
+  final Info? info;
   final List<Character> results;
 }

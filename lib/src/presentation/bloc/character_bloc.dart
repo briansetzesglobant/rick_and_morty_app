@@ -1,5 +1,4 @@
 import 'dart:async';
-import '../../data/datasource/local/DAOs/character_database.dart';
 import '../../core/bloc/bloc_interface.dart';
 import '../../data/model/general_character.dart';
 import '../../domain/usecase/implementation/character_use_case.dart';
@@ -8,23 +7,25 @@ class CharacterBloc implements BlocInterface {
   CharacterBloc();
 
   CharacterUseCase _characterUseCase = CharacterUseCase();
-  late GeneralCharacter _generalCharacter;
-  late String? _nextPageCharacter;
-  CharacterDatabase _characterDatabase = CharacterDatabase.singleton;
+  String? _nextPageCharacter;
+  GeneralCharacter? _generalCharacter;
 
-  StreamController<GeneralCharacter> _characterStreamController =
-      StreamController();
+  StreamController<GeneralCharacter?> _characterStreamController =
+      StreamController.broadcast();
 
-  Stream<GeneralCharacter> get characterStream =>
+  Stream<GeneralCharacter?> get characterStream =>
       _characterStreamController.stream;
 
   @override
   String? get nextPageCharacter => _nextPageCharacter;
 
   @override
+  bool hasNextPageCharacter() => _nextPageCharacter != null;
+
+  @override
   Future<void> initialize() async {
-    this.characterStream.listen((eventCharacters) {
-      _generalCharacter = eventCharacters;
+    _characterStreamController.stream.listen((eventCharacters) {
+      _nextPageCharacter = eventCharacters?.info?.next;
     });
   }
 
@@ -35,28 +36,22 @@ class CharacterBloc implements BlocInterface {
 
   @override
   void fetchFirstCharacters() async {
-    final _generalCharacterFirst = await _characterUseCase.fetchAllCharacters();
-    _nextPageCharacter = _generalCharacterFirst.info.next!;
-    if (_generalCharacterFirst.results.isNotEmpty) {
-      await _characterDatabase.dropDatabase();
-      await _characterDatabase
-          .addCharacterToDataBase(_generalCharacterFirst.results);
-    }
-    _generalCharacter = GeneralCharacter(
-      info: _generalCharacterFirst.info,
-      results: await _characterDatabase.fetchCharacterFromDataBase(),
+    _generalCharacter = await _characterUseCase.fetchAllCharacters();
+    _characterStreamController.sink.add(
+      _generalCharacter,
     );
-    _characterStreamController.sink.add(_generalCharacter);
   }
 
   @override
   void fetchCharactersNextPage(String next) async {
-    final _generalCharacterNext =
+    GeneralCharacter? _generalCharacterNext =
         await _characterUseCase.fetchCharactersNextPage(next);
-    _generalCharacter.results.addAll(_generalCharacterNext.results);
-    _nextPageCharacter = _generalCharacterNext.info.next!;
+    _generalCharacter?.results.addAll(_generalCharacterNext?.results ?? []);
     _characterStreamController.sink.add(
-      _generalCharacter
+      GeneralCharacter(
+        info: _generalCharacterNext?.info,
+        results: _generalCharacter!.results,
+      ),
     );
   }
 }
