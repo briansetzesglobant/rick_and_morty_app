@@ -13,7 +13,7 @@ class AppRoutes {
         );
       case RoutesConstants.homeRoute:
         return MaterialPageRoute(
-          builder: (_) => const HomePage(
+          builder: (_) => HomePage(
             title: StringsConstants.homePageTitle,
           ),
         );

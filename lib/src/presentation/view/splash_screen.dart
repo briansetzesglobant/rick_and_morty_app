@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/util/constants.dart';
+import '../../core/util/numbers_constants.dart';
 import '../../core/util/routes_constants.dart';
 import '../../core/util/strings_constants.dart';
 
@@ -20,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Future<void> _navigateToHome() async {
     await Future.delayed(
       const Duration(
-        milliseconds: Constants.splashScreenDuration,
+        milliseconds: NumbersConstants.splashScreenDuration,
       ),
       () {
         Navigator.of(context).pushReplacementNamed(
@@ -48,15 +48,15 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
             ),
             const Positioned(
-              left: Constants.splashScreenPositionedLeft,
-              right: Constants.splashScreenPositionedRight,
-              bottom: Constants.splashScreenPositionedBottom,
+              left: NumbersConstants.splashScreenPositionedLeft,
+              right: NumbersConstants.splashScreenPositionedRight,
+              bottom: NumbersConstants.splashScreenPositionedBottom,
               child: LinearProgressIndicator(
                 backgroundColor: Colors.grey,
                 valueColor: AlwaysStoppedAnimation<Color>(
                   Colors.green,
                 ),
-                minHeight: Constants.splashScreenLinearMinHeight,
+                minHeight: NumbersConstants.splashScreenLinearMinHeight,
               ),
             ),
           ],
