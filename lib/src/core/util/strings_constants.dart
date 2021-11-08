@@ -7,10 +7,8 @@ abstract class StringsConstants {
   static const String seasonPage = 'Seasons';
   static const String locationPage = 'Locations';
 
-  static const String error =
-      'An error has occurred while loading the characters';
-
   static const String localDefaultImage = 'assets/images/default-thumb.png';
 
-  static const String constantInitialization = '';
+  static const String characterCollection = 'character';
+  static const String characterId = 'id';
 }

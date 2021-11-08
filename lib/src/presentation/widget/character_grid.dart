@@ -33,12 +33,14 @@ class _CharacterGridState extends State<CharacterGrid> {
             widget.characterBloc.fetchCharactersNextPage(
                 widget.characterBloc.nextPageCharacter!);
           }
-          return Center(
-            child: CircularProgressIndicator(
-              backgroundColor: Colors.greenAccent,
-              color: Colors.teal,
-            ),
-          );
+          return widget.characterBloc.nextPageCharacter != null
+              ? Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: Colors.greenAccent,
+                    color: Colors.teal,
+                  ),
+                )
+              : Container();
         } else {
           return CharacterCard(
             nameCharacter: widget.characterData.results[index].name,

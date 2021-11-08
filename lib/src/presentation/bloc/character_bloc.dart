@@ -7,22 +7,25 @@ class CharacterBloc implements BlocInterface {
   CharacterBloc();
 
   CharacterUseCase _characterUseCase = CharacterUseCase();
-  late GeneralCharacter _generalCharacter;
-  late String? _nextPageCharacter;
+  String? _nextPageCharacter;
+  GeneralCharacter? _generalCharacter;
 
-  StreamController<GeneralCharacter> _characterStreamController =
-      StreamController();
+  StreamController<GeneralCharacter?> _characterStreamController =
+      StreamController.broadcast();
 
-  Stream<GeneralCharacter> get characterStream =>
+  Stream<GeneralCharacter?> get characterStream =>
       _characterStreamController.stream;
 
   @override
   String? get nextPageCharacter => _nextPageCharacter;
 
   @override
+  bool hasNextPageCharacter() => _nextPageCharacter != null;
+
+  @override
   Future<void> initialize() async {
-    this.characterStream.listen((eventCharacters) {
-      _generalCharacter = eventCharacters;
+    _characterStreamController.stream.listen((eventCharacters) {
+      _nextPageCharacter = eventCharacters?.info?.next;
     });
   }
 
@@ -32,18 +35,23 @@ class CharacterBloc implements BlocInterface {
   }
 
   @override
-  void fetchAllCharacters() async {
+  void fetchFirstCharacters() async {
     _generalCharacter = await _characterUseCase.fetchAllCharacters();
-    _nextPageCharacter = _generalCharacter.info.next!;
-    _characterStreamController.sink.add(_generalCharacter);
+    _characterStreamController.sink.add(
+      _generalCharacter,
+    );
   }
 
   @override
   void fetchCharactersNextPage(String next) async {
-    final _generalCharacterNext =
+    GeneralCharacter? _generalCharacterNext =
         await _characterUseCase.fetchCharactersNextPage(next);
-    _generalCharacter.results.addAll(_generalCharacterNext.results);
-    _nextPageCharacter = _generalCharacterNext.info.next!;
-    _characterStreamController.sink.add(_generalCharacter);
+    _generalCharacter?.results.addAll(_generalCharacterNext?.results ?? []);
+    _characterStreamController.sink.add(
+      GeneralCharacter(
+        info: _generalCharacterNext?.info,
+        results: _generalCharacter!.results,
+      ),
+    );
   }
 }

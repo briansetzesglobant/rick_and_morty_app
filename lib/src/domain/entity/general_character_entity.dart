@@ -7,6 +7,6 @@ class GeneralCharacterEntity {
     required this.results,
   });
 
-  final InfoEntity info;
+  final InfoEntity? info;
   final List<CharacterEntity> results;
 }

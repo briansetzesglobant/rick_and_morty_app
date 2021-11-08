@@ -22,7 +22,8 @@ class _CharacterPageState extends State<CharacterPage> {
   @override
   void initState() {
     super.initState();
-    _characterBloc.fetchAllCharacters();
+    _characterBloc.initialize();
+    _characterBloc.fetchFirstCharacters();
   }
 
   @override
@@ -40,11 +41,11 @@ class _CharacterPageState extends State<CharacterPage> {
         ),
         centerTitle: true,
       ),
-      body: StreamBuilder<GeneralCharacter>(
+      body: StreamBuilder<GeneralCharacter?>(
           stream: _characterBloc.characterStream,
           builder: (
             context,
-            AsyncSnapshot<GeneralCharacter> snapshot,
+            AsyncSnapshot<GeneralCharacter?> snapshot,
           ) {
             return snapshot.hasData
                 ? CharacterGrid(

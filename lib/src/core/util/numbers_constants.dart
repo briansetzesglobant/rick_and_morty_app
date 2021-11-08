@@ -27,8 +27,4 @@ abstract class NumbersConstants {
   static const double pageTextSizeCharacterName = 20.0;
   static const double borderCharacterCard = 3.0;
   static const double borderRadiusCharacterCard = 30.0;
-
-  static const int constantInitialization = 0;
-  static const int numberOneFor = 1;
-  static const int numberZeroFor = 0;
 }

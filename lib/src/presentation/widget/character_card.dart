@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../core/util/numbers_constants.dart';
 import '../../core/util/strings_constants.dart';
+import '../../core/util/numbers_constants.dart';
 import '../../core/util/text_styles.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class CharacterCard extends StatelessWidget {
   const CharacterCard({
@@ -40,11 +41,18 @@ class CharacterCard extends StatelessWidget {
                 borderRadius: BorderRadius.all(
                   Radius.circular(NumbersConstants.radius),
                 ),
-                child: FadeInImage.assetNetwork(
-                  placeholder: StringsConstants.localDefaultImage,
-                  image: imageCharacter,
-                  width: NumbersConstants.sizeFadeInImage,
-                  height: NumbersConstants.sizeFadeInImage,
+                child: CachedNetworkImage(
+                  placeholder: (context, url) => Image.asset(
+                    StringsConstants.localDefaultImage,
+                    width: NumbersConstants.sizeFadeInImage,
+                    height: NumbersConstants.sizeFadeInImage,
+                  ),
+                  imageUrl: imageCharacter,
+                  errorWidget: (context, url, error) => Image.asset(
+                    StringsConstants.localDefaultImage,
+                    width: NumbersConstants.sizeFadeInImage,
+                    height: NumbersConstants.sizeFadeInImage,
+                  ),
                 ),
               ),
             ),

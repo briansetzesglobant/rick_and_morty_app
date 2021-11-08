@@ -8,12 +8,12 @@ class CharacterRepository extends RepositoryInterface {
   final CharacterApiService characterApiService = CharacterApiService();
 
   @override
-  Future<GeneralCharacter> fetchAllCharacters() {
+  Future<GeneralCharacter?> fetchAllCharacters() {
     return characterApiService.fetchAllCharacters();
   }
 
   @override
-  Future<GeneralCharacter> fetchCharactersNextPage(String next) {
+  Future<GeneralCharacter?> fetchCharactersNextPage(String next) {
     return characterApiService.fetchCharactersNextPage(next);
   }
 }

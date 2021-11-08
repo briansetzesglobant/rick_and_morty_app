@@ -66,4 +66,21 @@ class Character extends CharacterEntity {
   final List<String> episode;
   final String url;
   final String created;
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'status': status,
+      'species': species,
+      'type': type,
+      'gender': gender,
+      'origin': origin.toJson(),
+      'location': location.toJson(),
+      'image': image,
+      'episode': episode.toList(),
+      'url': url,
+      'created': created,
+    };
+  }
 }
